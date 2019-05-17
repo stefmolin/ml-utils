@@ -17,14 +17,15 @@ Plot a confusion matrix as a heatmap:
 >>> from ml_utils.classification import confusion_matrix_visual
 >>> confusion_matrix_visual(y_test, preds, ['white', 'red'])
 ```
-<img src="images/confusion_matrix.png?raw=true" align="center" width="600" alt="confusion matrix">
+<img src="images/confusion_matrix.png?raw=true" align="center" alt="confusion matrix">
 
 ROC curves for binary classification can be visualized as follows:
 ```
 >>> from ml_utils.classification import plot_roc
 >>> plot_roc(y_test, white_or_red.predict_proba(X_test)[:,1])
 ```
-<img src="images/roc_curve.png?raw=true" align="center" width="600" alt="ROC curve">
+<img src="images/roc_curve.png?raw=true" align="center" alt="ROC curve">
+
 *Use `ml_utils.classification.plot_multi_class_roc()` for a multi-class ROC curve.*
 
 Precision-recall curves for binary classification can be visualized as follows:
@@ -32,7 +33,8 @@ Precision-recall curves for binary classification can be visualized as follows:
 >>> from ml_utils.classification import plot_pr_curve
 >>> plot_pr_curve(y_test, white_or_red.predict_proba(X_test)[:,1])
 ```
-<img src="images/pr_curve.png?raw=true" align="center" width="600" alt="precision recall curve">
+<img src="images/pr_curve.png?raw=true" align="center" alt="precision recall curve">
+
 *Use `ml_utils.classification.plot_multi_class_pr_curve()` for a multi-class precision-recall curve.*
 
 Finding probability thresholds that yield target TPR/FPR:
@@ -58,7 +60,7 @@ Use the elbow point method to find good value for `k` when using k-means cluster
 ...     ])
 ... )
 ```
-<img src="images/elbow_point.png?raw=true" align="center" width="600" alt="elbow point plot with k-means">
+<img src="images/elbow_point.png?raw=true" align="center" alt="elbow point plot with k-means">
 
 ### Pipeline with `partial_fit()`
 ```
@@ -91,7 +93,7 @@ Use PCA with two components to see if the classification problem is linearly sep
 >>> pca_scatter(wine_X, wine_y, 'wine is red?')
 >>> plt.title('Wine Kind PCA (2 components)')
 ```
-<img src="images/pca_scatter.png?raw=true" align="center" width="600" alt="PCA scatter in 2D">
+<img src="images/pca_scatter.png?raw=true" align="center" alt="PCA scatter in 2D">
 
 Try in 3D:
 ```
@@ -99,7 +101,7 @@ Try in 3D:
 >>> pca_scatter_3d(wine_X, wine_y, 'wine is red?', elev=20, azim=-10)
 >>> plt.title('Wine Type PCA (3 components)')
 ```
-<img src="images/pca_scatter_3d.png?raw=true" align="center" width="600" alt="PCA scatter in 3D">
+<img src="images/pca_scatter_3d.png?raw=true" align="center" alt="PCA scatter in 3D">
 
 See how much variance is explained by PCA components, cumulatively:
 ```
@@ -114,7 +116,7 @@ See how much variance is explained by PCA components, cumulatively:
 
 >>> pca_explained_variance_plot(pipeline.named_steps['pca'])
 ```
-<img src="images/explained_variance_ratio.png?raw=true" align="center" width="600" alt="cumulative explained variance of PCA components">
+<img src="images/explained_variance_ratio.png?raw=true" align="center" alt="cumulative explained variance of PCA components">
 
 See how much variance each PCA component explains:
 ```
@@ -129,7 +131,7 @@ See how much variance each PCA component explains:
 
 >>> pca_scree_plot(pipeline.named_steps['pca'])
 ```
-<img src="images/scree_plot.png?raw=true" align="center" width="600" alt="scree plot">
+<img src="images/scree_plot.png?raw=true" align="center" alt="scree plot">
 
 ### Regression
 With the test `y` values and the predicted `y` values, we can look at the residuals:

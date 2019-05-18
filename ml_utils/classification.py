@@ -79,7 +79,7 @@ def plot_roc(y_test, preds, ax=None):
     ax.annotate(f'AUC: {auc(fpr, tpr):.2}', xy=(.43, .025))
     return ax
 
-def plot_pr_curve(y_test, preds, positive_class=1):
+def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
     """
     Plot precision-recall curve to evaluate classification.
 
@@ -87,32 +87,34 @@ def plot_pr_curve(y_test, preds, positive_class=1):
         - y_test: The true values for y
         - preds: The predicted values for y as probabilities
         - positive_class: The label for the positive class in the data
+        - ax: The matplotlib Axes object to plot on
 
     Returns:
         Plotted precision-recall curve.
     """
     precision, recall, thresholds = precision_recall_curve(y_test, preds)
 
-    fig, axes = plt.subplots()
+    if not ax:
+        fig, ax = plt.subplots()
 
-    axes.axhline(sum(y_test == positive_class)/len(y_test), color='navy', lw=2, linestyle='--', label='baseline')
-    axes.plot(recall, precision, color='red', lw=2, label='model')
+    ax.axhline(sum(y_test == positive_class)/len(y_test), color='navy', lw=2, linestyle='--', label='baseline')
+    ax.plot(recall, precision, color='red', lw=2, label='model')
 
-    axes.legend()
-    axes.set_title(
+    ax.legend()
+    ax.set_title(
         'Precision-recall curve\n'
         f""" AP: {average_precision_score(
             y_test, preds, pos_label=positive_class
         ):.2} | """
         f'AUC: {auc(recall, precision):.2}'
     )
-    axes.set_xlabel('Recall')
-    axes.set_ylabel('Precision')
+    ax.set_xlabel('Recall')
+    ax.set_ylabel('Precision')
 
-    axes.set_xlim(-0.05, 1.05)
-    axes.set_ylim(-0.05, 1.05)
+    ax.set_xlim(-0.05, 1.05)
+    ax.set_ylim(-0.05, 1.05)
 
-    return axes
+    return ax
 
 def plot_multi_class_roc(y_test, preds, ax=None):
     """

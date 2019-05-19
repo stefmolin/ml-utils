@@ -1,4 +1,4 @@
-"""Utilities for evaluting classification models."""
+"""Utilities for evaluating classification models."""
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -38,7 +38,7 @@ def confusion_matrix_visual(y_true, y_pred, class_labels, ax=None, title=None, *
     axes.set_title(title or 'Confusion Matrix')
     return axes
 
-def find_threshold(y_test, y_preds, fpr_below, tpr_above):
+def find_threshold_roc(y_test, y_preds, *, fpr_below, tpr_above):
     """
     Find the threshold to use with `predict_proba()` for classification
     based on the maximum acceptable FPR and the minimum acceptable TPR.
@@ -50,10 +50,29 @@ def find_threshold(y_test, y_preds, fpr_below, tpr_above):
         - tpr_above: The minimum acceptable TPR.
 
     Returns:
-        The thresholds were the criteria are met.
+        The thresholds that produce a classification meeting the criteria.
     """
     fpr, tpr, thresholds = roc_curve(y_test, y_preds)
     return thresholds[(fpr <= fpr_below) & (tpr >= tpr_above)]
+
+def find_threshold_pr(y_test, y_preds, *, min_precision, min_recall):
+    """
+    Find the threshold to use with `predict_proba()` for classification
+    based on the minimum acceptable precision and the minimum acceptable recall.
+
+    Parameters:
+        - y_test: The actual labels.
+        - y_preds: The predicted labels.
+        - min_precision: The minimum acceptable precision.
+        - min_recall: The minimum acceptable recall.
+
+    Returns:
+        The thresholds that produce a classification meeting the criteria.
+    """
+    precision, recall, thresholds = precision_recall_curve(y_test, y_preds)
+    # precision and recall have one extra value at the end for plotting
+    # but this needs to be removed in order to make a mask with the thresholds
+    return thresholds[(precision[:-1] >= min_precision) & (recall[:-1] >= min_recall)]
 
 def plot_roc(y_test, preds, ax=None):
     """

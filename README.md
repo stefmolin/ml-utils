@@ -39,9 +39,18 @@ Precision-recall curves for binary classification can be visualized as follows:
 
 Finding probability thresholds that yield target TPR/FPR:
 ```
->>> from ml_utils.classification import find_threshold
->>> find_threshold(
+>>> from ml_utils.classification import find_threshold_roc
+>>> find_threshold_roc(
 ...     y_jan, model.predict_proba(X_jan)[:,1], fpr_below=0.05, tpr_above=0.75
+... ).max()
+0.011191747078992526
+```
+
+Finding probability thresholds that yield target precision/recall:
+```
+>>> from ml_utils.classification import find_threshold_pr
+>>> find_threshold_pr(
+...     y_jan, model.predict_proba(X_jan)[:,1], min_precision=0.95, min_recall=0.75
 ... ).max()
 0.011191747078992526
 ```

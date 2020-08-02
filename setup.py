@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='ml_utils',
-    version='0.1.0',
+    version='0.2.0',
     description='Utilities for machine learning with scikit-learn.',
     author='Stefanie Molin',
     author_email='24376333+stefmolin@users.noreply.github.com',

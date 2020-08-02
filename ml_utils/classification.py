@@ -52,7 +52,7 @@ def find_threshold_roc(y_test, y_preds, *, fpr_below, tpr_above):
     Returns:
         The thresholds that produce a classification meeting the criteria.
     """
-    fpr, tpr, thresholds = roc_curve(y_test, y_preds)
+    fpr, tpr, thresholds = roc_curve(y_test, y_preds, drop_intermediate=False)
     return thresholds[(fpr <= fpr_below) & (tpr >= tpr_above)]
 
 def find_threshold_pr(y_test, y_preds, *, min_precision, min_recall):

@@ -8,7 +8,8 @@ from sklearn.metrics import (
     precision_recall_curve, r2_score, roc_curve
 )
 
-def confusion_matrix_visual(y_true, y_pred, class_labels, ax=None, title=None, **kwargs):
+def confusion_matrix_visual(y_true, y_pred, class_labels, normalize=False,
+                            flip=False, ax=None, title=None, **kwargs):
     """
     Create a confusion matrix heatmap to evaluate classification.
 
@@ -16,6 +17,11 @@ def confusion_matrix_visual(y_true, y_pred, class_labels, ax=None, title=None, *
         - y_test: The true values for y
         - preds: The predicted values for y
         - class_labels: What to label the classes.
+        - normalize: Whether to plot the values as percentages.
+        - flip: Whether to flip the confusion matrix. This is helpful to get
+                TP in the top left corner and TN in the bottom right when dealing
+                with binary classification with labels True and False. Note you
+                will have to provide the class labels in the flipped order.
         - ax: The matplotlib Axes object to plot on.
         - title: The title for the confusion matrix
         - kwargs: Additional keyword arguments for `seaborn.heatmap()`
@@ -24,8 +30,17 @@ def confusion_matrix_visual(y_true, y_pred, class_labels, ax=None, title=None, *
         A confusion matrix heatmap.
     """
     mat = confusion_matrix(y_true, y_pred)
+    if normalize:
+        fmt, mat = '.2%', mat / mat.sum()
+    else:
+        fmt = 'd'
+
+    if flip:
+        class_labels = class_labels[::-1]
+        mat = np.flip(mat)
+
     axes = sns.heatmap(
-        mat.T, square=True, annot=True, fmt='d',
+        mat.T, square=True, annot=True, fmt=fmt,
         cbar=True, cmap=plt.cm.Blues, ax=ax, **kwargs
     )
     axes.set_xlabel('Actual')

@@ -16,10 +16,10 @@ def adjusted_r2(model, X, y):
     Returns:
         The adjusted R^2 score.
     """
-	r2 = r2_score(y, model.predict(X))
-	n_obs, n_regressors = X.shape
-	adj_r2 = 1 - (1 - r2) * (n_obs - 1)/(n_obs - n_regressors - 1)
-	return adj_r2
+    r2 = r2_score(y, model.predict(X))
+    n_obs, n_regressors = X.shape
+    adj_r2 = 1 - (1 - r2) * (n_obs - 1)/(n_obs - n_regressors - 1)
+    return adj_r2
 
 def plot_residuals(y_test, preds):
     """

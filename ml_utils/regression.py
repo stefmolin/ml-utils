@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.metrics import r2_score
 
 def adjusted_r2(model, X, y):
-	"""
+    """
     Calculate the adjusted R^2.
 
     Parameters:

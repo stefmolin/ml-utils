@@ -26,7 +26,7 @@ def confusion_matrix_visual(y_true, y_pred, class_labels, normalize=False,
         - kwargs: Additional keyword arguments for `seaborn.heatmap()`
 
     Returns:
-        A confusion matrix heatmap.
+        A matplotlib Axes object.
     """
     mat = confusion_matrix(y_true, y_pred)
     if normalize:
@@ -98,18 +98,23 @@ def plot_roc(y_test, preds, ax=None):
         - ax: The Axes to plot on
 
     Returns:
-        Plotted ROC curve.
+        A matplotlib Axes object.
     """
     if not ax:
         fig, ax = plt.subplots(1, 1)
+
     fpr, tpr, thresholds = roc_curve(y_test, preds)
+
     ax.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--', label='baseline')
     ax.plot(fpr, tpr, color='red', lw=2, label='model')
+
     ax.legend(loc='lower right')
     ax.set_title('ROC curve')
     ax.set_xlabel('False Positive Rate (FPR)')
     ax.set_ylabel('True Positive Rate (TPR)')
+
     ax.annotate(f'AUC: {auc(fpr, tpr):.2}', xy=(.43, .025))
+
     return ax
 
 def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
@@ -123,7 +128,7 @@ def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
         - ax: The matplotlib Axes object to plot on
 
     Returns:
-        Plotted precision-recall curve.
+        A matplotlib Axes object.
     """
     precision, recall, thresholds = precision_recall_curve(y_test, preds)
 
@@ -159,7 +164,7 @@ def plot_multi_class_roc(y_test, preds, ax=None):
         - ax: The Axes to plot on
 
     Returns:
-        ROC curve.
+        A matplotlib Axes object.
     """
     if not ax:
         fig, ax = plt.subplots(1, 1)
@@ -186,7 +191,7 @@ def plot_multi_class_pr_curve(y_test, preds):
         - preds: The predicted values for y as probabilities
 
     Returns:
-        Plotted precision-recall curve.
+        A matplotlib Axes object.
     """
     class_labels = np.sort(y_test.unique())
 

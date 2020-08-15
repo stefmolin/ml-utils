@@ -154,7 +154,7 @@ def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
 
     return ax
 
-def plot_multi_class_roc(y_test, preds, ax=None):
+def plot_multiclass_roc(y_test, preds, ax=None):
     """
     Plot ROC curve to evaluate classification.
 
@@ -168,21 +168,27 @@ def plot_multi_class_roc(y_test, preds, ax=None):
     """
     if not ax:
         fig, ax = plt.subplots(1, 1)
+
     ax.plot([0, 1], [0, 1], color='navy', lw=2, linestyle='--', label='baseline')
+
     class_labels = np.sort(y_test.unique())
     for i, class_label in enumerate(class_labels):
         actuals = np.where(y_test == class_label, 1, 0)
         predicted_probabilities = preds[:,i]
+
         fpr, tpr, thresholds = roc_curve(actuals, predicted_probabilities)
         auc_score = auc(fpr, tpr)
+
         ax.plot(fpr, tpr, lw=2, label=f"""class {class_label}; AUC: {auc_score:.2}""")
+
     ax.legend()
-    ax.set_title('Multi-class ROC curve')
+    ax.set_title('Multiclass ROC curve')
     ax.set_xlabel('False Positive Rate (FPR)')
     ax.set_ylabel('True Positive Rate (TPR)')
+
     return ax
 
-def plot_multi_class_pr_curve(y_test, preds):
+def plot_multiclass_pr_curve(y_test, preds):
     """
     Plot precision-recall curve to evaluate classification.
 

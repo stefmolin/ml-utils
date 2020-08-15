@@ -20,8 +20,7 @@ def confusion_matrix_visual(y_true, y_pred, class_labels, normalize=False,
         - normalize: Whether to plot the values as percentages.
         - flip: Whether to flip the confusion matrix. This is helpful to get
                 TP in the top left corner and TN in the bottom right when dealing
-                with binary classification with labels True and False. Note you
-                will have to provide the class labels in the flipped order.
+                with binary classification with labels True and False.
         - ax: The matplotlib Axes object to plot on.
         - title: The title for the confusion matrix
         - kwargs: Additional keyword arguments for `seaborn.heatmap()`

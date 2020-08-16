@@ -7,7 +7,7 @@ from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import MinMaxScaler
 
-def pca_scatter(X, labels, cbar_label, color_map='brg'):
+def pca_scatter(X, labels, cbar_label, cmap='brg'):
     """
     Create a 2D scatter plot from 2 PCA components of X
 
@@ -15,23 +15,23 @@ def pca_scatter(X, labels, cbar_label, color_map='brg'):
         - X: The X data for PCA
         - labels: The y values
         - cbar_label: The label for the colorbar
-        - color_map: Name of the color_map to use. Default is 'brg'
+        - cmap: Name of the colormap to use. Default is 'brg'
 
     Returns:
         Matplotlib Axes object
     """
     pca = Pipeline([('scale', MinMaxScaler()), ('pca', PCA(2, random_state=0))]).fit(X)
-    data = pca.transform(X)
+    data, classes = pca.transform(X), np.unique(labels)
     ax = plt.scatter(
         data[:, 0], data[:, 1],
         c=labels, edgecolor='none', alpha=0.5,
-        cmap=plt.cm.get_cmap(color_map, 2)
+        cmap=plt.cm.get_cmap(cmap, classes.shape[0])
     )
     plt.xlabel('component 1')
     plt.ylabel('component 2')
     cbar = plt.colorbar()
     cbar.set_label(cbar_label)
-    cbar.set_ticks([0, 1])
+    cbar.set_ticks(classes)
     plt.legend(
         ['explained variance\n'
         'comp. 1: {:.3}\ncomp. 2: {:.3}'.format(
@@ -40,7 +40,7 @@ def pca_scatter(X, labels, cbar_label, color_map='brg'):
     )
     return ax
 
-def pca_scatter_3d(X, labels, cbar_label, color_map='brg', elev=10, azim=15):
+def pca_scatter_3d(X, labels, cbar_label, cmap='brg', elev=10, azim=15):
     """
     Create a 3D scatter plot from 3 PCA components of X
 
@@ -48,7 +48,7 @@ def pca_scatter_3d(X, labels, cbar_label, color_map='brg', elev=10, azim=15):
         - X: The X data for PCA
         - labels: The y values
         - cbar_label: The label for the colorbar
-        - color_map: Name of the color_map to use. Default is 'brg'
+        - cmap: Name of the colormap to use. Default is 'brg'
         - elev: The degrees of elevation to view the plot from. Default is 10.
         - azim: The azimuth angle on the xy plane (rotation around the z-axis). Default is 15.
 
@@ -56,19 +56,19 @@ def pca_scatter_3d(X, labels, cbar_label, color_map='brg', elev=10, azim=15):
         Matplotlib Axes object
     """
     pca = Pipeline([('scale', MinMaxScaler()), ('pca', PCA(3, random_state=0))]).fit(X)
-    data = pca.transform(X)
+    data, classes = pca.transform(X), np.unique(labels)
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
     p = ax.scatter3D(
         data[:, 0], data[:, 1], data[:, 2], alpha=0.5,
-        c=labels, cmap=plt.cm.get_cmap(color_map, 2)
+        c=labels, cmap=plt.cm.get_cmap(cmap, classes.shape[0])
     )
     ax.view_init(elev=elev, azim=azim)
     ax.set_xlabel('component 1')
     ax.set_ylabel('component 2')
     ax.set_zlabel('component 3')
-    cbar = fig.colorbar(p)
-    cbar.set_ticks([0, 1])
+    cbar = fig.colorbar(p, pad=0.1)
+    cbar.set_ticks(classes)
     cbar.set_label(cbar_label)
     plt.legend(
         ['explained variance\n'
@@ -87,7 +87,7 @@ def pca_explained_variance_plot(pca_model, ax=None):
         - ax: Matplotlib Axes to plot on.
 
     Returns:
-        A matplotlib Axes objects
+        A matplotlib Axes object
     """
     if not ax:
         fig, ax = plt.subplots()
@@ -111,7 +111,7 @@ def pca_scree_plot(pca_model, ax=None):
         - ax: Matplotlib Axes to plot on.
 
     Returns:
-        A matplotlib Axes objects
+        A matplotlib Axes object
     """
     if not ax:
         fig, ax = plt.subplots()

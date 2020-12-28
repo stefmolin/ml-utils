@@ -1,5 +1,5 @@
 # Machine learning utility functions and classes
-All examples derived from chapters 9-11 in my book: [Hands-On Data Analysis with Pandas](https://github.com/stefmolin/Hands-On-Data-Analysis-with-Pandas).
+All examples derived from chapters 9-11 in my book, *Hands-On Data Analysis with Pandas* ([1st edition](https://github.com/stefmolin/Hands-On-Data-Analysis-with-Pandas), [2nd edition](https://github.com/stefmolin/Hands-On-Data-Analysis-with-Pandas-2nd-edition)).
 
 *Note: This package uses scikit-learn for metrics calculation; however, with the except of the `PartialFitPipeline` the functionality should work for other purposes provided the input data is in the proper format.*
 

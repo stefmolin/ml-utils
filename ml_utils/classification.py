@@ -21,12 +21,12 @@ def confusion_matrix_visual(y_true, y_pred, class_labels, normalize=False,
         - flip: Whether to flip the confusion matrix. This is helpful to get
                 TP in the top left corner and TN in the bottom right when dealing
                 with binary classification with labels True and False.
-        - ax: The matplotlib Axes object to plot on.
+        - ax: The matplotlib `Axes` object to plot on.
         - title: The title for the confusion matrix
         - kwargs: Additional keyword arguments for `seaborn.heatmap()`
 
     Returns:
-        A matplotlib Axes object.
+        A matplotlib `Axes` object.
     """
     mat = confusion_matrix(y_true, y_pred)
     if normalize:
@@ -95,10 +95,10 @@ def plot_roc(y_test, preds, ax=None):
     Parameters:
         - y_test: The true values for y
         - preds: The predicted values for y as probabilities
-        - ax: The Axes to plot on
+        - ax: The `Axes` object to plot on
 
     Returns:
-        A matplotlib Axes object.
+        A matplotlib `Axes` object.
     """
     if not ax:
         fig, ax = plt.subplots(1, 1)
@@ -125,10 +125,10 @@ def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
         - y_test: The true values for y
         - preds: The predicted values for y as probabilities
         - positive_class: The label for the positive class in the data
-        - ax: The matplotlib Axes object to plot on
+        - ax: The matplotlib `Axes` object to plot on
 
     Returns:
-        A matplotlib Axes object.
+        A matplotlib `Axes` object.
     """
     precision, recall, thresholds = precision_recall_curve(y_test, preds)
 
@@ -161,10 +161,10 @@ def plot_multiclass_roc(y_test, preds, ax=None):
     Parameters:
         - y_test: The true values for y
         - preds: The predicted values for y as probabilities
-        - ax: The Axes to plot on
+        - ax: The `Axes` object to plot on
 
     Returns:
-        A matplotlib Axes object.
+        A matplotlib `Axes` object.
     """
     if not ax:
         fig, ax = plt.subplots(1, 1)
@@ -197,7 +197,7 @@ def plot_multiclass_pr_curve(y_test, preds):
         - preds: The predicted values for y as probabilities
 
     Returns:
-        A matplotlib Axes object.
+        A matplotlib `Axes` object.
     """
     class_labels = np.sort(y_test.unique())
 

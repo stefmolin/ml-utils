@@ -32,12 +32,12 @@ def pca_scatter(X, labels, cbar_label, cmap='brg'):
     cbar = plt.colorbar()
     cbar.set_label(cbar_label)
     cbar.set_ticks(classes)
-    plt.legend(
-        ['explained variance\n'
+    plt.legend([
+        'explained variance\n'
         'comp. 1: {:.3}\ncomp. 2: {:.3}'.format(
             *pca.named_steps['pca'].explained_variance_ratio_
-        )]
-    )
+        )
+    ])
     return ax
 
 def pca_scatter_3d(X, labels, cbar_label, cmap='brg', elev=10, azim=15):
@@ -70,12 +70,12 @@ def pca_scatter_3d(X, labels, cbar_label, cmap='brg', elev=10, azim=15):
     cbar = fig.colorbar(p, pad=0.1)
     cbar.set_ticks(classes)
     cbar.set_label(cbar_label)
-    plt.legend(
-        ['explained variance\n'
+    plt.legend([
+        'explained variance\n'
         'comp. 1: {:.3}\ncomp. 2: {:.3}\ncomp. 3: {:.3}'.format(
             *pca.named_steps['pca'].explained_variance_ratio_
-        )]
-    )
+        )
+    ])
     return ax
 
 def pca_explained_variance_plot(pca_model, ax=None):
@@ -91,11 +91,7 @@ def pca_explained_variance_plot(pca_model, ax=None):
     """
     if not ax:
         fig, ax = plt.subplots()
-    ax.plot(
-        np.append(
-            0, pca_model.explained_variance_ratio_.cumsum()
-        ), 'o-'
-    )
+    ax.plot(np.append(0, pca_model.explained_variance_ratio_.cumsum()), 'o-')
     ax.set_title('Total Explained Variance Ratio for PCA Components')
     ax.set_xlabel('PCA components used')
     ax.set_ylabel('cumulative explained variance ratio')
@@ -116,7 +112,9 @@ def pca_scree_plot(pca_model, ax=None):
     if not ax:
         fig, ax = plt.subplots()
 
-    ax.plot(np.arange(1, 9), pca_model.explained_variance_, 'o-')
+    values = pca_model.explained_variance_
+
+    ax.plot(np.arange(1, values.size + 1), values, 'o-')
     ax.set_title('Scree Plot for PCA Components')
     ax.set_xlabel('PCA components used')
     ax.set_ylabel('explained variance')

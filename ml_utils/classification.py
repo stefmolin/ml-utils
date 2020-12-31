@@ -42,8 +42,7 @@ def confusion_matrix_visual(y_true, y_pred, class_labels, normalize=False,
         mat.T, square=True, annot=True, fmt=fmt,
         cbar=True, cmap=plt.cm.Blues, ax=ax, **kwargs
     )
-    axes.set_xlabel('Actual')
-    axes.set_ylabel('Model Prediction')
+    axes.set(xlabel='Actual', ylabel='Model Prediction')
     tick_marks = np.arange(len(class_labels)) + 0.5
     axes.set_xticks(tick_marks)
     axes.set_xticklabels(class_labels)
@@ -113,7 +112,7 @@ def plot_roc(y_test, preds, ax=None):
     ax.set_xlabel('False Positive Rate (FPR)')
     ax.set_ylabel('True Positive Rate (TPR)')
 
-    ax.annotate(f'AUC: {auc(fpr, tpr):.2}', xy=(.43, .025))
+    ax.annotate(f'AUC: {auc(fpr, tpr):.2}', xy=(0.5, 0), horizontalalignment='center')
 
     return ax
 
@@ -135,7 +134,10 @@ def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
     if not ax:
         fig, ax = plt.subplots()
 
-    ax.axhline(sum(y_test == positive_class)/len(y_test), color='navy', lw=2, linestyle='--', label='baseline')
+    ax.axhline(
+        sum(y_test == positive_class) / len(y_test),
+        color='navy', lw=2, linestyle='--', label='baseline'
+    )
     ax.plot(recall, precision, color='red', lw=2, label='model')
 
     ax.legend()
@@ -146,8 +148,7 @@ def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
         ):.2} | """
         f'AUC: {auc(recall, precision):.2}'
     )
-    ax.set_xlabel('Recall')
-    ax.set_ylabel('Precision')
+    ax.set(xlabel='Recall', ylabel='Precision')
 
     ax.set_xlim(-0.05, 1.05)
     ax.set_ylim(-0.05, 1.05)
@@ -220,8 +221,7 @@ def plot_multiclass_pr_curve(y_test, preds):
 
         axes[i].legend()
         axes[i].set_title(f'Precision-recall curve: class {class_label}')
-        axes[i].set_xlabel('Recall')
-        axes[i].set_ylabel('Precision')
+        axes[i].set(xlabel='Recall', ylabel='Precision')
 
         axes[i].set_xlim(-0.05, 1.05)
         axes[i].set_ylim(-0.05, 1.05)

@@ -18,7 +18,7 @@ def pca_scatter(X, labels, cbar_label, cmap='brg'):
         - cmap: Name of the colormap to use. Default is 'brg'
 
     Returns:
-        Matplotlib Axes object
+        Matplotlib `Axes` object
     """
     pca = Pipeline([('scale', MinMaxScaler()), ('pca', PCA(2, random_state=0))]).fit(X)
     data, classes = pca.transform(X), np.unique(labels)
@@ -53,7 +53,7 @@ def pca_scatter_3d(X, labels, cbar_label, cmap='brg', elev=10, azim=15):
         - azim: The azimuth angle on the xy plane (rotation around the z-axis). Default is 15.
 
     Returns:
-        Matplotlib Axes object
+        Matplotlib `Axes` object
     """
     pca = Pipeline([('scale', MinMaxScaler()), ('pca', PCA(3, random_state=0))]).fit(X)
     data, classes = pca.transform(X), np.unique(labels)
@@ -84,10 +84,10 @@ def pca_explained_variance_plot(pca_model, ax=None):
 
     Parameters:
         - pca_model: The PCA model that has been fit already
-        - ax: Matplotlib Axes to plot on.
+        - ax: Matplotlib `Axes` object to plot on.
 
     Returns:
-        A matplotlib Axes object
+        A matplotlib `Axes` object
     """
     if not ax:
         fig, ax = plt.subplots()
@@ -108,10 +108,10 @@ def pca_scree_plot(pca_model, ax=None):
 
     Parameters:
         - pca_model: The PCA model that has been fit already
-        - ax: Matplotlib Axes to plot on.
+        - ax: Matplotlib `Axes` object to plot on.
 
     Returns:
-        A matplotlib Axes object
+        A matplotlib `Axes` object
     """
     if not ax:
         fig, ax = plt.subplots()

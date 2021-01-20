@@ -143,7 +143,7 @@ def plot_pr_curve(y_test, preds, positive_class=1, ax=None):
     ax.legend()
     ax.set_title(
         'Precision-recall curve\n'
-        f""" AP: {average_precision_score(
+        f"""AP: {average_precision_score(
             y_test, preds, pos_label=positive_class
         ):.2} | """
         f'AUC: {auc(recall, precision):.2}'

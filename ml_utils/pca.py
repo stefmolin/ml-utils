@@ -116,7 +116,7 @@ def pca_scree_plot(pca_model, ax=None):
 
     ax.plot(np.arange(1, values.size + 1), values, 'o-')
     ax.set_title('Scree Plot for PCA Components')
-    ax.set_xlabel('PCA components used')
+    ax.set_xlabel('component')
     ax.set_ylabel('explained variance')
 
     return ax
